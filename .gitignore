@@ -1,0 +1,32 @@
+# Maven target directory
+/target/
+
+# IntelliJ IDEA project files
+/.idea/
+/*.iml
+
+# GWT generated files
+war/WEB-INF/classes/
+war/WEB-INF/deploy/
+war/WEB-INF/lib/
+war/WEB-INF/src/
+war/WEB-INF/web.xml
+war/WEB-INF/appengine-generated/
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Compiled class files
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Generated files
+*.gwt.rpc
