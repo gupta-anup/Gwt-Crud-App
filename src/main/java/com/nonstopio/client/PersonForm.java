@@ -6,6 +6,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 import com.nonstopio.shared.Person;
+import com.google.gwt.user.client.Window;
 
 public class PersonForm extends Composite {
     private TextBox firstName;
