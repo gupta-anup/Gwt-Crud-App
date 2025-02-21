@@ -35,4 +35,9 @@
     <welcome-file>GwtCrudApp.html</welcome-file>
   </welcome-file-list>
 
+  <!-- Database Initializer -->
+  <listener>
+    <listener-class>com.nonstopio.server.DatabaseInitializer</listener-class>
+  </listener>
+
 </web-app>

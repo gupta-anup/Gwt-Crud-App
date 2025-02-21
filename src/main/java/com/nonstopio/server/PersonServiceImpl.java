@@ -3,55 +3,86 @@ package com.nonstopio.server;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.nonstopio.client.PersonService;
 import com.nonstopio.shared.Person;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PersonServiceImpl extends RemoteServiceServlet implements PersonService {
     private static final long serialVersionUID = 1L;
 
-    // In-memory storage for this example
-    private static final Map<Long, Person> persons = new HashMap<>();
-    private static Long nextId = 1L;
-
     @Override
     public Person createPerson(Person person) {
-        // Assign a new ID
-        person.setId(nextId++);
-        persons.put(person.getId(), person);
-        return person;
+        Transaction transaction = null;
+        try (Session session = DatabaseConfig.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.save(person);
+            transaction.commit();
+            return person;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            throw new RuntimeException("Error creating person: " + e.getMessage());
+        }
     }
 
     @Override
     public Person updatePerson(Person person) {
-        if (person.getId() == null || !persons.containsKey(person.getId())) {
-            throw new IllegalArgumentException("Person not found with id: " + person.getId());
+        Transaction transaction = null;
+        try (Session session = DatabaseConfig.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.update(person);
+            transaction.commit();
+            return person;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            throw new RuntimeException("Error updating person: " + e.getMessage());
         }
-        persons.put(person.getId(), person);
-        return person;
     }
 
     @Override
     public void deletePerson(Long id) {
-        if (!persons.containsKey(id)) {
-            throw new IllegalArgumentException("Person not found with id: " + id);
+        Transaction transaction = null;
+        try (Session session = DatabaseConfig.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            Person person = session.get(Person.class, id);
+            if (person != null) {
+                session.delete(person);
+            }
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            throw new RuntimeException("Error deleting person: " + e.getMessage());
         }
-        persons.remove(id);
     }
 
     @Override
     public Person getPerson(Long id) {
-        Person person = persons.get(id);
-        if (person == null) {
-            throw new IllegalArgumentException("Person not found with id: " + id);
+        try (Session session = DatabaseConfig.getSessionFactory().openSession()) {
+            return session.get(Person.class, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error getting person: " + e.getMessage());
         }
-        return person;
     }
 
     @Override
     public List<Person> getAllPersons() {
-        return new ArrayList<>(persons.values());
+        try (Session session = DatabaseConfig.getSessionFactory().openSession()) {
+            Query<Person> query = session.createQuery("FROM Person", Person.class);
+            return query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error getting all persons: " + e.getMessage());
+        }
     }
 }
