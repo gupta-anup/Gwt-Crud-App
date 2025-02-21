@@ -1,6 +1,5 @@
 package com.nonstopio.server;
 
-import com.nonstopio.client.GreetingService;
 import com.nonstopio.shared.FieldVerifier;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
