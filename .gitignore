@@ -30,3 +30,6 @@ Thumbs.db
 
 # Generated files
 *.gwt.rpc
+
+# IDE-specific files
+.settings/
