@@ -1,34 +1,71 @@
-/** Add css rules here for your application. */
+/*!** Add css rules here for your application. *!*/
 
 
-/** Example rules used by the template application (remove for your app) */
+/*!** Example rules used by the template application (remove for your app) *!*/
+/*h1 {*/
+/*  font-size: 2em;*/
+/*  font-weight: bold;*/
+/*  color: #777777;*/
+/*  margin: 40px 0px 70px;*/
+/*  text-align: center;*/
+/*}*/
+
+/*.sendButton {*/
+/*  display: block;*/
+/*  font-size: 16pt;*/
+/*}*/
+
+/*!** Most GWT widgets already have a style name defined *!*/
+/*.gwt-DialogBox {*/
+/*  width: 400px;*/
+/*}*/
+
+/*.dialogVPanel {*/
+/*  margin: 5px;*/
+/*}*/
+
+/*.serverResponseLabelError {*/
+/*  color: red;*/
+/*}*/
+
+/*!** Set ids using widget.getElement().setId("idOfElement") *!*/
+/*#closeButton {*/
+/*  margin: 15px 6px 6px;*/
+/*}*/
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
 h1 {
-  font-size: 2em;
+  color: #333;
+}
+
+.person-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.person-table td, .person-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.person-table-header td {
+  background-color: #f2f2f2;
   font-weight: bold;
-  color: #777777;
-  margin: 40px 0px 70px;
-  text-align: center;
 }
 
-.sendButton {
-  display: block;
-  font-size: 16pt;
-}
-
-/** Most GWT widgets already have a style name defined */
-.gwt-DialogBox {
+.person-form {
   width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
-.dialogVPanel {
+button {
   margin: 5px;
-}
-
-.serverResponseLabelError {
-  color: red;
-}
-
-/** Set ids using widget.getElement().setId("idOfElement") */
-#closeButton {
-  margin: 15px 6px 6px;
+  padding: 5px 10px;
 }
